@@ -3,14 +3,9 @@
 import { Badge, Box, Button, Image, Stack } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router.js'
-import { useGlobalContext } from '../../store/global/GlobalProvider.js'
 
 function Header() {
   const navigate = useNavigate()
-
-  const {
-    state: { favorite },
-  } = useGlobalContext()
 
   const { pathname } = useLocation()
   function isActive(param: string) {

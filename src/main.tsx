@@ -1,9 +1,12 @@
+// @ts- nocheck
+
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
-import GlobalProvider from './store/global/GlobalProvider.tsx'
+import { store } from './store/global/store.ts'
+import { Provider } from 'react-redux'
 
 const colors = {
   brand: {
@@ -18,9 +21,9 @@ const theme = extendTheme({ colors })
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ChakraProvider theme={theme}>
     <BrowserRouter>
-      <GlobalProvider>
+      <Provider store={store}>
         <App />
-      </GlobalProvider>
+      </Provider>
     </BrowserRouter>
   </ChakraProvider>,
 )

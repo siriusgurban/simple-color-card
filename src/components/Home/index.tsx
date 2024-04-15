@@ -1,11 +1,18 @@
+// @ts-nocheck
+
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import useTitle from '../../hooks/useTitle'
 import ColorBoxGroup from '../ColorBoxGroup'
-
-const colorArr = [1, 2, 3, 4, 5, 6]
+import { useSelector } from 'react-redux'
 
 function Home() {
   useTitle('Home')
+
+  const colorsGlobal = useSelector(
+    (state: RootState) => state.colorGroup.colorGroup,
+  )
+
+  console.log(colorsGlobal, 'colorsGlobal')
 
   return (
     <div>
@@ -27,8 +34,10 @@ function Home() {
           flexWrap="wrap"
           gap={2}
         >
-          {colorArr.map((item, index) => (
-            <ColorBoxGroup />
+          {colorsGlobal.map((item, index) => (
+            <ColorBoxGroup key={index} arr={item}>
+              {console.log(item, 'item')}
+            </ColorBoxGroup>
           ))}
         </Box>
       </SimpleGrid>
