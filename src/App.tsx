@@ -5,9 +5,9 @@ import { Box } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
 import { ROOTER } from './constants/router'
 
-const Home = lazy(() => import('./components/Home'))
-const Settings = lazy(() => import('./components/Settings'))
-const NotFound = lazy(() => import('./components/NotFound'))
+const Home = lazy(() => import('./pages/Home'))
+const Settings = lazy(() => import('./pages/Settings'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
   return (

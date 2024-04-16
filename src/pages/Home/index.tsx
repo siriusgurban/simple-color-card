@@ -2,7 +2,7 @@
 
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import useTitle from '../../hooks/useTitle'
-import ColorBoxGroup from '../ColorBoxGroup'
+import ColorBoxGroup from '../../components/ColorBoxGroup'
 import { useSelector } from 'react-redux'
 
 function Home() {
@@ -35,9 +35,7 @@ function Home() {
           gap={2}
         >
           {colorsGlobal.map((item, index) => (
-            <ColorBoxGroup key={index} arr={item}>
-              {console.log(item, 'item')}
-            </ColorBoxGroup>
+            <ColorBoxGroup key={index} arr={item} />
           ))}
         </Box>
       </SimpleGrid>

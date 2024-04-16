@@ -13,10 +13,10 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import useTitle from '../../hooks/useTitle'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { ROOTER } from '../../constants/router'
-import ColorBox from '../ColorBox'
+import ColorBox from '../../components/ColorBox'
 import { useDispatch, useSelector } from 'react-redux'
 import { colorsHandle } from '../../store/global/colorSlice'
 
@@ -27,9 +27,11 @@ const initialValues = {
 
 function Settings() {
   useTitle('Settings')
+  const navigate = useNavigate()
 
   const [color, setColor] = useState([])
-  const [colorGroup, setColorGroup] = useState([])
+  const [colorGroup, setColorGroup] = useState('')
+  const [disable, setDisable] = useState(true)
 
   const dispatch = useDispatch()
   const colorsGlobal = useSelector(
@@ -38,7 +40,7 @@ function Settings() {
 
   console.log(colorsGlobal, 'colorsGlobal')
 
-  const { values, handleChange, handleSubmit, errors } = useFormik({
+  const { values, handleChange, handleSubmit, errors, resetForm } = useFormik({
     initialValues,
     onSubmit: handleSubmitColor,
     validate: (form) => {
@@ -83,14 +85,18 @@ function Settings() {
   // }
 
   function handleSubmitColor() {
+    if (color.length == 5) {
+      setDisable(!disable)
+    }
     if (color.length >= 6) return
     setColor([...color, values])
   }
 
-  function handleSubmitColorGroup({ colorGroup }) {
-    // console.log(colorGroup, 'colorGroup')
-    // const newData = { colorGroup: color }
-    dispatch(colorsHandle([{ color: color }]))
+  function handleSubmitColorGroup() {
+    if (colorGroup.trim().length == 0) return
+    if (color.length < 6) return
+    dispatch(colorsHandle({ color: color, colorGroup: colorGroup }))
+    navigate(ROOTER.HOME)
   }
 
   return (
@@ -128,7 +134,12 @@ function Settings() {
             <FormHelperText color="red">{errors?.desc}</FormHelperText>
           )}
           <Box display="flex" justifyContent="center">
-            <Button colorScheme="telegram" my={5} onClick={handleSubmit}>
+            <Button
+              isDisabled={!disable}
+              colorScheme="telegram"
+              my={5}
+              onClick={handleSubmit}
+            >
               Add Color
             </Button>
           </Box>
@@ -136,7 +147,6 @@ function Settings() {
             <input type="color" />
           </div>
         </FormControl>
-
         <SimpleGrid
           columns={[2, null, 3]}
           width="360px"
@@ -164,7 +174,8 @@ function Settings() {
               <Button
                 colorScheme="telegram"
                 my={5}
-                onClick={() => handleSubmitColorGroup(colorGroup)}
+                onClick={() => handleSubmitColorGroup()}
+                isDisabled={disable}
               >
                 Save
               </Button>

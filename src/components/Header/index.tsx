@@ -3,6 +3,7 @@
 import { Badge, Box, Button, Image, Stack } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router.js'
+import { useSelector } from 'react-redux'
 
 function Header() {
   const navigate = useNavigate()
@@ -11,6 +12,10 @@ function Header() {
   function isActive(param: string) {
     return pathname === param ? 'orange.700' : 'telegram'
   }
+
+  const colorsGlobal = useSelector(
+    (state: RootState) => state.colorGroup.colorGroup,
+  )
 
   return (
     <div>
@@ -44,6 +49,9 @@ function Header() {
             }}
           >
             Home
+            <Badge color="red">
+              {!!colorsGlobal?.length && colorsGlobal?.length}
+            </Badge>
           </Button>
           <Button
             color={isActive(ROOTER.SETTINGS)}

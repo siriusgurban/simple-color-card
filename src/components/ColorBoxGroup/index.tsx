@@ -8,9 +8,9 @@ function ColorBoxGroup({ arr }) {
 
   return (
     <>
-      <Heading>Group Name:</Heading>
+      <Heading>Group Name: {arr?.colorGroup}</Heading>
       <SimpleGrid columns={[2, null, 3]} width="360px" height="160px">
-        {arr[0].color.map((item, index) => {
+        {arr?.color.map((item, index) => {
           return (
             <ColorBox
               key={index}
