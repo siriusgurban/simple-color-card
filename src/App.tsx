@@ -1,9 +1,10 @@
 import { Suspense, lazy } from 'react'
 import './App.css'
 import Header from './components/Header'
-import { Box } from '@chakra-ui/react'
+import { Box, Progress } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
 import { ROOTER } from './constants/router'
+import SpinnerLoad from './components/SpinnerLoad'
 
 const Home = lazy(() => import('./pages/Home'))
 const Settings = lazy(() => import('./pages/Settings'))
@@ -12,9 +13,10 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 function App() {
   return (
     <>
-      <Suspense fallback>
+      <Suspense fallback={<SpinnerLoad />}>
         <Header />
-        <Box bg="red.50">
+        <Progress size="xs" isIndeterminate colorScheme="yellow" height="6px" />
+        <Box>
           <Routes>
             <Route path={ROOTER.HOME} element={<Home />} />
             <Route path={ROOTER.SETTINGS} element={<Settings />} />

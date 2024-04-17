@@ -4,6 +4,8 @@ import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import useTitle from '../../hooks/useTitle'
 import ColorBoxGroup from '../../components/ColorBoxGroup'
 import { useSelector } from 'react-redux'
+import { TypeAnimation } from 'react-type-animation'
+import GetStart from '../../components/GetStart'
 
 function Home() {
   useTitle('Home')
@@ -19,24 +21,35 @@ function Home() {
       <SimpleGrid
         spacing={2}
         display="flex"
-        justifyContent="around"
         flexDirection="column"
-        px={10}
-        py={10}
+        p={{ sm: '10px', lg: 10, md: 8 }}
         height="100vh"
+        maxHeight="100%"
+        bgColor="#CCE4F7"
+        minWidth="460px"
       >
-        <Heading mx="auto" p={10}>
-          Color Schemes
+        <Heading mx="auto" pb={10}>
+          <TypeAnimation
+            sequence={['Color Schemes', 1000]}
+            wrapper="span"
+            cursor={false}
+            repeat={1}
+          />
         </Heading>
         <Box
           display="flex"
           justifyContent="space-between"
           flexWrap="wrap"
-          gap={2}
+          flexDirection="column"
+          gap={6}
         >
-          {colorsGlobal.map((item, index) => (
-            <ColorBoxGroup key={index} arr={item} />
-          ))}
+          {colorsGlobal.length != 0 ? (
+            colorsGlobal.map((item, index) => (
+              <ColorBoxGroup key={index} arr={item} />
+            ))
+          ) : (
+            <GetStart />
+          )}
         </Box>
       </SimpleGrid>
     </div>

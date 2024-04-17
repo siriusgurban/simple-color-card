@@ -10,6 +10,11 @@ import {
   Box,
   FormHelperText,
   useToast,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import useTitle from '../../hooks/useTitle'
@@ -19,15 +24,18 @@ import { ROOTER } from '../../constants/router'
 import ColorBox from '../../components/ColorBox'
 import { useDispatch, useSelector } from 'react-redux'
 import { colorsHandle } from '../../store/global/colorSlice'
+import { TypeAnimation } from 'react-type-animation'
+import { ColorInput } from '../../components/ColorInput'
 
 const initialValues = {
-  colorName: '',
-  colorCode: '',
+  colorName: 'Green-400',
+  colorCode: '#50C878',
 }
 
 function Settings() {
   useTitle('Settings')
   const navigate = useNavigate()
+  const toast = useToast()
 
   const [color, setColor] = useState([])
   const [colorGroup, setColorGroup] = useState('')
@@ -40,7 +48,7 @@ function Settings() {
 
   console.log(colorsGlobal, 'colorsGlobal')
 
-  const { values, handleChange, handleSubmit, errors, resetForm } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues,
     onSubmit: handleSubmitColor,
     validate: (form) => {
@@ -61,29 +69,6 @@ function Settings() {
     },
   })
 
-  // async function handleEditBloag(data) {
-  //   console.log(data, 'data')
-  //   try {
-  //     await crtBlog(data)
-  //     navigate(ROOTER.ARTICLES)
-  //     toast({
-  //       description: 'Your post created',
-  //       status: 'success',
-  //       duration: 3000,
-  //       isClosable: true,
-  //       position: 'top-right',
-  //     })
-  //   } catch (error) {
-  //     toast({
-  //       description: error.message,
-  //       status: 'error',
-  //       duration: 3000,
-  //       isClosable: true,
-  //       position: 'top-right',
-  //     })
-  //   }
-  // }
-
   function handleSubmitColor() {
     if (color.length == 5) {
       setDisable(!disable)
@@ -93,97 +78,150 @@ function Settings() {
   }
 
   function handleSubmitColorGroup() {
-    if (colorGroup.trim().length == 0) return
+    if (colorGroup.trim().length == 0) {
+      toast({
+        // title: 'Account created.',
+        description: 'Enter Group name',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
     if (color.length < 6) return
     dispatch(colorsHandle({ color: color, colorGroup: colorGroup }))
     navigate(ROOTER.HOME)
   }
 
   return (
-    <SimpleGrid
-      spacing={10}
+    <Box
+      spacing={2}
       display="flex"
       flexDirection="column"
-      justifyContent="center"
-      px={10}
-      py={6}
+      mx="auto"
+      p={{ sm: '10px', lg: 10, md: 8 }}
+      bgColor="#CCE4F7"
+      h="100vh"
+      minWidth="460px"
+      // justifyContent="center"
     >
-      <Heading mx="auto">Create Color Scheme</Heading>
-      <Box display="flex" justifyContent="space-between">
-        <FormControl width="30%">
-          <FormLabel htmlFor="colorName">Color Name</FormLabel>
-          <Input
-            type="text"
-            id="colorName"
-            name="colorName"
-            value={color?.colorName}
-            onChange={handleChange}
+      <Box
+        // maxW="1200px"
+        display="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Heading mx="auto" pb={10}>
+          <TypeAnimation
+            sequence={['Create Color Scheme', 1000]}
+            wrapper="span"
+            cursor={false}
+            repeat={1}
           />
-          {errors?.title && (
-            <FormHelperText color="red">{errors?.title}</FormHelperText>
-          )}
-          <FormLabel htmlFor="colorCode">Color Code</FormLabel>
-          <Input
-            type="text"
-            id="colorCode"
-            name="colorCode"
-            value={color?.colorCode}
-            onChange={handleChange}
-          />
-          {errors?.desc && (
-            <FormHelperText color="red">{errors?.desc}</FormHelperText>
-          )}
-          <Box display="flex" justifyContent="center">
-            <Button
-              isDisabled={!disable}
-              colorScheme="telegram"
-              my={5}
-              onClick={handleSubmit}
-            >
-              Add Color
-            </Button>
-          </Box>
-          <div>
-            <input type="color" />
-          </div>
-        </FormControl>
-        <SimpleGrid
-          columns={[2, null, 3]}
-          width="360px"
-          height="160px"
-          mx="auto"
-        >
-          {color.map((item, index) => {
-            return (
-              <ColorBox
-                color={item?.colorCode}
-                name={item?.colorName}
-                key={index}
-              />
-            )
-          })}
-          <FormControl>
-            <FormLabel htmlFor="groupName">Group Name</FormLabel>
+        </Heading>
+        <Box display="flex" gap="4%">
+          <FormControl width="35%">
+            <FormLabel htmlFor="colorName">Color Name</FormLabel>
             <Input
               type="text"
-              id="groupName"
-              name="groupName"
-              onChange={(e) => setColorGroup(e.target.value)}
+              id="colorName"
+              name="colorName"
+              value={color?.colorName}
+              onChange={handleChange}
+              border="1px solid #0088CC"
             />
-            <Box display="flex" justifyContent="center" w="100%">
+            {errors?.title && (
+              <FormHelperText color="red">{errors?.title}</FormHelperText>
+            )}
+            <FormLabel htmlFor="colorCode">Color Code</FormLabel>
+            <Input
+              type="text"
+              id="colorCode"
+              name="colorCode"
+              value={color?.colorCode}
+              onChange={handleChange}
+              border="1px solid #0088CC"
+            />
+            {errors?.desc && (
+              <FormHelperText color="red">{errors?.desc}</FormHelperText>
+            )}
+            <Box display="flex" justifyContent="center">
               <Button
+                isDisabled={!disable}
                 colorScheme="telegram"
                 my={5}
-                onClick={() => handleSubmitColorGroup()}
-                isDisabled={disable}
+                onClick={handleSubmit}
               >
-                Save
+                Add Color
               </Button>
             </Box>
           </FormControl>
-        </SimpleGrid>
+          <Box
+            width="65%"
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+            gap={10}
+          >
+            <Box
+              display="flex"
+              flexDirection="row"
+              flexWrap="wrap"
+              maxWidth="360px"
+              mx="auto"
+            >
+              {color.map((item, index) => {
+                return (
+                  <ColorBox
+                    color={item?.colorCode}
+                    name={item?.colorName}
+                    key={index}
+                  />
+                )
+              })}
+            </Box>
+            <Box>
+              <FormControl width="80%" mx="auto">
+                <FormLabel htmlFor="groupName">Group Name</FormLabel>
+                <Input
+                  type="text"
+                  id="groupName"
+                  name="groupName"
+                  onChange={(e) => setColorGroup(e.target.value)}
+                  border="1px solid #0088CC"
+                />
+                <Box display="flex" justifyContent="center">
+                  <Button
+                    colorScheme="telegram"
+                    my={5}
+                    onClick={() => handleSubmitColorGroup()}
+                    isDisabled={disable}
+                    width="100%"
+                  >
+                    Save
+                  </Button>
+                </Box>
+              </FormControl>
+            </Box>
+          </Box>
+        </Box>
+        <Accordion allowMultiple>
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="center" fontWeight="600">
+                  Pick a color
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <ColorInput />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
       </Box>
-    </SimpleGrid>
+    </Box>
   )
 }
 

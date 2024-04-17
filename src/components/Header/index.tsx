@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Badge, Box, Button, Image, Stack } from '@chakra-ui/react'
+import { Badge, Box, Button, Stack } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router.js'
 import { useSelector } from 'react-redux'
@@ -10,7 +10,7 @@ function Header() {
 
   const { pathname } = useLocation()
   function isActive(param: string) {
-    return pathname === param ? 'orange.700' : 'telegram'
+    return pathname === param ? 'yellow.500' : 'telegram'
   }
 
   const colorsGlobal = useSelector(
@@ -22,34 +22,34 @@ function Header() {
       <Box
         h={100}
         p={8}
-        bgColor="green.500"
+        bgGradient="linear(to-l, #7928CA,#12D97C, #FF0080)"
         display="flex"
-        justifyContent="space-between"
+        justifyContent="center"
+        gap={36}
         alignItems="center"
-        borderBottomWidth="6px"
-        borderColor="orange.700"
+        // borderBottomWidth="6px"
+        // borderColor="yellow.500"
       >
-        {/* <Image
-          colorScheme="telegram"
-          variant="ghost"
-          onClick={() => {
-            navigate(ROOTER.HOME)
-          }}
-          cursor="pointer"
-          fontSize="3xl"
-          src="../../../icons8-blog-96.png"
-        /> */}
         <Stack direction="row" spacing={4} align="center">
           <Button
             color={isActive(ROOTER.HOME)}
             colorScheme="telegram"
             variant="ghost"
+            fontSize={24}
             onClick={() => {
               navigate(ROOTER.HOME)
             }}
           >
             Home
-            <Badge color="red">
+            <Badge
+              color="red"
+              bgColor="cyan.300"
+              border={`${!!colorsGlobal?.length && '1px solid black'}`}
+              rounded="50%"
+              position="absolute"
+              top="6px"
+              right="-2px"
+            >
               {!!colorsGlobal?.length && colorsGlobal?.length}
             </Badge>
           </Button>
@@ -57,6 +57,7 @@ function Header() {
             color={isActive(ROOTER.SETTINGS)}
             colorScheme="telegram"
             variant="ghost"
+            fontSize={24}
             onClick={() => {
               navigate(ROOTER.SETTINGS)
             }}
