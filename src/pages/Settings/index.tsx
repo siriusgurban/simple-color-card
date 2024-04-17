@@ -3,18 +3,12 @@
 import {
   FormControl,
   FormLabel,
-  SimpleGrid,
   Input,
   Heading,
   Button,
   Box,
   FormHelperText,
   useToast,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import useTitle from '../../hooks/useTitle'
@@ -25,7 +19,7 @@ import ColorBox from '../../components/ColorBox'
 import { useDispatch, useSelector } from 'react-redux'
 import { colorsHandle } from '../../store/global/colorSlice'
 import { TypeAnimation } from 'react-type-animation'
-import { ColorInput } from '../../components/ColorInput'
+import AccordionColorPicker from '../../components/AccordionColorPicker'
 
 const initialValues = {
   colorName: 'Green-400',
@@ -80,7 +74,6 @@ function Settings() {
   function handleSubmitColorGroup() {
     if (colorGroup.trim().length == 0) {
       toast({
-        // title: 'Account created.',
         description: 'Enter Group name',
         status: 'error',
         duration: 3000,
@@ -99,18 +92,12 @@ function Settings() {
       display="flex"
       flexDirection="column"
       mx="auto"
-      p={{ sm: '10px', lg: 10, md: 8 }}
+      p={{ xs: '4px', sm: '10px', lg: 10, md: 8 }}
       bgColor="#CCE4F7"
       h="100vh"
-      minWidth="460px"
-      // justifyContent="center"
+      minWidth="345px"
     >
-      <Box
-        // maxW="1200px"
-        display="flex"
-        justifyContent="center"
-        flexDirection="column"
-      >
+      <Box display="flex" justifyContent="center" flexDirection="column">
         <Heading mx="auto" pb={10}>
           <TypeAnimation
             sequence={['Create Color Scheme', 1000]}
@@ -169,6 +156,8 @@ function Settings() {
               flexWrap="wrap"
               maxWidth="360px"
               mx="auto"
+              width={{ xs: '135px', sm: '180px', md: '270px', lg: '360px' }}
+              height={{ xs: '60px', sm: '80px', md: '120px', lg: '160px' }}
             >
               {color.map((item, index) => {
                 return (
@@ -205,21 +194,7 @@ function Settings() {
             </Box>
           </Box>
         </Box>
-        <Accordion allowMultiple>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="center" fontWeight="600">
-                  Pick a color
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <ColorInput />
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+        <AccordionColorPicker />
       </Box>
     </Box>
   )

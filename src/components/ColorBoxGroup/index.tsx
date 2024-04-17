@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Box, Heading, SimpleGrid, Text } from '@chakra-ui/react'
+import { Box, Heading, Text } from '@chakra-ui/react'
 import ColorBox from '../ColorBox'
 import { useEffect, useState } from 'react'
 
@@ -22,7 +22,8 @@ function ColorBoxGroup({ arr }) {
         display="flex"
         justifyContent="space-around"
         alignItems="center"
-        flexDirection="wrap"
+        gap="10%"
+        px="20px"
       >
         <Box>
           <Heading
@@ -40,8 +41,9 @@ function ColorBoxGroup({ arr }) {
           flexDirection="row"
           flexWrap="wrap"
           maxWidth="360px"
+          width={{ xs: '135px', sm: '180px', md: '270px', lg: '360px' }}
+          height={{ xs: '60px', sm: '80px', md: '120px', lg: '160px' }}
         >
-          {/* <SimpleGrid columns={[2, 3]} width="360px" height="160px"> */}
           {arr?.color.map((item, index) => {
             return (
               <ColorBox
@@ -51,7 +53,6 @@ function ColorBoxGroup({ arr }) {
               />
             )
           })}
-          {/* </SimpleGrid> */}
         </Box>
       </Box>
     </>

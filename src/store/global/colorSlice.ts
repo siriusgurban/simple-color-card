@@ -2,11 +2,26 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface LoadSlice {
-  load: booleans
+type colorCodeObj = {
+  colorName: string
+  colorCode: string
 }
 
-const initialState: LoadState = {
+type colorState = [
+  {
+    color: [
+      colorCodeObj,
+      colorCodeObj,
+      colorCodeObj,
+      colorCodeObj,
+      colorCodeObj,
+      colorCodeObj,
+    ]
+    colorGroup: string
+  },
+]
+
+const initialState: colorState = {
   colorGroup: [],
 }
 

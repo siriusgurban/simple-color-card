@@ -22,11 +22,11 @@ function Home() {
         spacing={2}
         display="flex"
         flexDirection="column"
-        p={{ sm: '10px', lg: 10, md: 8 }}
+        p={{ xs: '4px', sm: '10px', lg: 10, md: 8 }}
         height="100vh"
         maxHeight="100%"
         bgColor="#CCE4F7"
-        minWidth="460px"
+        minWidth="345px"
       >
         <Heading mx="auto" pb={10}>
           <TypeAnimation
@@ -41,7 +41,7 @@ function Home() {
           justifyContent="space-between"
           flexWrap="wrap"
           flexDirection="column"
-          gap={6}
+          gap="16px"
         >
           {colorsGlobal.length != 0 ? (
             colorsGlobal.map((item, index) => (

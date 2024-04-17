@@ -27,8 +27,6 @@ function Header() {
         justifyContent="center"
         gap={36}
         alignItems="center"
-        // borderBottomWidth="6px"
-        // borderColor="yellow.500"
       >
         <Stack direction="row" spacing={4} align="center">
           <Button

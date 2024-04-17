@@ -16,7 +16,17 @@ const colors = {
   },
 }
 
-const theme = extendTheme({ colors })
+const breakpoints = {
+  base: '0em',
+  xs: '16em',
+  sm: '30em',
+  md: '48em',
+  lg: '62em',
+  xl: '80em',
+  '2xl': '96em',
+}
+
+const theme = extendTheme({ breakpoints, colors })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ChakraProvider theme={theme}>
