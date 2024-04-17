@@ -12,4 +12,4 @@ This project created with Redux Toolkit, TS, React JS, Chakra UI, Formik.
 
 #
 
-Here you can coloring your day [Simple Color Card](https://redux-todo-app-woad-six.vercel.app)
+Here you can coloring your day [Simple Color Card](https://simple-color-card.vercel.app)
