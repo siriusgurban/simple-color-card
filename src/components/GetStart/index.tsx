@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Heading } from '@chakra-ui/react'
+import { Box, Button, Heading } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router'
 
